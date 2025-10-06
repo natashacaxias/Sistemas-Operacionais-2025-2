@@ -20,21 +20,27 @@ void *leitor(void *arg){
     int id = args->id;
     int ver = args->ver;
     
-    if (ver == 3 || ver==1){ //sem controle de concorrência
-        global_ranking.exibir_validar_ranking();        
+    if (ver == 3 || ver==1){     //sem controle de concorrência
+        //printf("Thread %d (leitura) começou...\n", id);
+        usleep(5000);
+        global_ranking.exibir_validar_ranking();
+        //printf("Thread %d (leitura) terminou\n", id);
     }
 
-    else if(ver == 2){ // escritores com prioridade sobre leitores
+    else if(ver == 2){           // escritores com prioridade sobre leitores
 
         sem_wait(&sem_mutex);
         qtd_leitores++;
         if (qtd_leitores == 1) {
-            sem_wait(&sem_dados); // Primeiro leitor bloqueia escritores
+            sem_wait(&sem_dados); // primeiro leitor bloqueia escritores
         }
         sem_post(&sem_mutex);
         
         // Seção Crítica - LEITURA
+        //printf("Thread %d (leitura) começou...\n", id);
         global_ranking.exibir_validar_ranking();
+        //printf("Thread %d (leitura) terminou\n", id);
+        // -----------------------
 
         sem_wait(&sem_mutex);
         qtd_leitores--;
@@ -54,17 +60,22 @@ void *escritor(void *arg){
     int ver = args->ver;
 
     if(ver==1 || ver == 2){
+        //printf("Thread %d (escrita) começou...\n", id);
         sem_wait(&sem_dados);
         global_ranking.simular_evento();
         usleep(10500);
         global_ranking.atualizarRanking();
         sem_post(&sem_dados);
+        //printf("Thread %d (escrita) terminou\n", id);
+
     }
 
     else {
+        //printf("Thread %d (escrita) começou...\n", id);
         global_ranking.simular_evento();
         usleep(20000);
         global_ranking.atualizarRanking();
+        //printf("Thread %d (escrita) terminou\n", id);
     }
     
     delete args;
@@ -129,7 +140,7 @@ int main(){
 
     printf("\n=== RANKING FINAL ===\n");
     global_ranking.exibir_validar_ranking();
-    printf("\nTotal de leituras sujas %d", global_ranking.qtd_leituras_sujas);
+    printf("\nTotal de leituras sujas: %d\n\n", global_ranking.qtd_leituras_sujas);
 
     // Desativas semáforos
     sem_destroy(&sem_mutex);

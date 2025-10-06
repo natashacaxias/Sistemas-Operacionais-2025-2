@@ -21,7 +21,7 @@ struct ranking{
     mt19937 gen;
     ranking() : gen(rd()) {}
 
-    // Ordena o vetor de jogadores em ordem descrescentemente
+    // Ordena o vetor de jogadores em ordem descrescente
     void insertionSort() {
         int i, j;
         usuario pivot;
@@ -40,7 +40,7 @@ struct ranking{
         insertionSort();
     }
 
-    // Mostra o ranking ordenado descrescente
+    // Mostra o ranking e verifica se está ordenado
     void exibir_validar_ranking(){
         if(qtd_jogadores==0) return;
 
@@ -66,7 +66,7 @@ struct ranking{
     void simular_evento(){
         if (qtd_jogadores == 0) return;
 
-        // Gerar números aleatórios
+        // Gerar números com aleatoriedade uniformemente distribuida
         uniform_int_distribution<> dist_idx(0, qtd_jogadores - 1);
         uniform_int_distribution<> dist_pontos(1, 100);
         uniform_int_distribution<> dist_sinal(0, 1);
