@@ -20,17 +20,10 @@ void *leitor(void *arg){
     int id = args->id;
     int ver = args->ver;
     
-    if (ver == 3){ //sem controle de concorrência
+    if (ver == 3 || ver==1){ //sem controle de concorrência
         global_ranking.exibir_validar_ranking();        
     }
 
-    if(ver == 1){ //sem prioridade, um de cada vez
-        sem_wait(&sem_mutex);
-        usleep(10000); // simular muitos leitores
-        global_ranking.exibir_validar_ranking();
-        sem_post(&sem_mutex);
-        
-    }
     else if(ver == 2){ // escritores com prioridade sobre leitores
 
         sem_wait(&sem_mutex);
@@ -60,7 +53,7 @@ void *escritor(void *arg){
     int id = args->id;
     int ver = args->ver;
 
-    if(ver == 2){
+    if(ver==1 || ver == 2){
         sem_wait(&sem_dados);
         global_ranking.simular_evento();
         usleep(10500);
@@ -68,13 +61,6 @@ void *escritor(void *arg){
         sem_post(&sem_dados);
     }
 
-    else if(ver == 1){
-        sem_wait(&sem_mutex);
-        global_ranking.simular_evento();
-        usleep(10500);
-        global_ranking.atualizarRanking();
-        sem_post(&sem_mutex);
-    }
     else {
         global_ranking.simular_evento();
         usleep(20000);
