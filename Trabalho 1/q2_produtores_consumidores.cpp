@@ -124,7 +124,7 @@ void* consumidor(void* arg) {
                 global_ranking.atualizarRanking();
                 global_ranking.exibir_validar_ranking();
             } else {
-                printf("[Servidor %d] aguardando pontuações... (sem controle)\n", id);
+                printf("[Servidor %d] aguardando pontuacoes... (sem controle)\n", id);
             }
         }
         // ---------------- COM CONTROLE ----------------
@@ -166,16 +166,16 @@ void* consumidor(void* arg) {
 int main() {
     srand(time(NULL));
 
-    printf("=== TP1 – Produtores x Consumidores (Tema: Ranking de Jogo) ===\n");
-    printf("Escolha a versão:\n");
-    printf("  1) Vários jogadores e 1 servidor\n");
-    printf("  2) Vários jogadores e vários servidores\n");
-    printf("  3) Sem controle de concorrência (para demonstrar problema)\n");
-    printf("Versão: ");
+    printf("=== TP1 - Produtores x Consumidores (Tema: Ranking de Jogo) ===\n");
+    printf("Escolha a versao:\n");
+    printf("  1) Varios jogadores e 1 servidor\n");
+    printf("  2) Varios jogadores e varios servidores\n");
+    printf("  3) Sem controle de concorrencia (para demonstrar problema)\n");
+    printf("Versao: ");
 
     int versao;
     scanf("%d", &versao);
-    printf("\nExecutando versão %d...\n\n", versao);
+    printf("\nExecutando versao %d...\n\n", versao);
 
     // Inicializa semáforos
     sem_init(&sem_cheio, 0, 0);

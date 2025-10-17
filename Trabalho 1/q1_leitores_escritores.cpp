@@ -86,7 +86,7 @@ int main(){
     string nome[10] = {"Ana", "Joca", "Maria", "Pedro", "Julia", "Lucas", "Carla", "Miguel", "Sofia", "Rafael"};
     int versao = 2;
 
-    printf("Simulação de ranking de jogo:\n");
+    printf("=== TP1 - Leitores x Escritores (Tema: Ranking de Jogo) ===\n");
     printf("1. Sem controle de prioridade\n2. Escritores com prioridade sobre leitores\n3. Sem controle de concorrencia\nEscolha uma versao: ");
     scanf("%d", &versao);
 
@@ -140,7 +140,7 @@ int main(){
 
     printf("\n=== RANKING FINAL ===\n");
     global_ranking.exibir_validar_ranking();
-    printf("\nTotal de leituras sujas: %d\n\n", global_ranking.qtd_leituras_sujas);
+    printf("Total de leituras sujas: %d\n\n", global_ranking.qtd_leituras_sujas);
 
     // Desativas semáforos
     sem_destroy(&sem_mutex);
