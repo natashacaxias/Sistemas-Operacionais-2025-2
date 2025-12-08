@@ -16,9 +16,9 @@
 
 void criar_pasta_data() {
 #ifdef _WIN32
-    _mkdir("data");
+    _mkdir("q2/data");
 #else
-    mkdir("data", 0777);
+    mkdir("q2/data", 0777);
 #endif
 }
 
@@ -27,7 +27,7 @@ int main() {
     // Criar pasta data/
     criar_pasta_data();
 
-    FILE *arquivo = fopen("/data/resultados_par.csv", "w");
+    FILE *arquivo = fopen("q2/data/resultados_par.csv", "w");
     if (!arquivo) {
         printf("Erro ao criar CSV!\n");
         return 1;
@@ -37,7 +37,7 @@ int main() {
     fprintf(arquivo, "n,threads,tempo\n");
 
     // Tamanhos de matrizes que serão testados
-    int tamanhos[] = {100, 200, 300, 400, 500, 600, 700, 800};
+    int tamanhos[] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
     int qtd_tam = sizeof(tamanhos) / sizeof(tamanhos[0]);
 
     // Quantidades de threads

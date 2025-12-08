@@ -15,9 +15,9 @@
 
 void criar_pasta_data() {
 #ifdef _WIN32
-    _mkdir("data");  // Ignora erro caso já exista
+    _mkdir("q2/data");  // Ignora erro caso já exista
 #else
-    mkdir("data", 0777); 
+    mkdir("q2/data", 0777); 
 #endif
 }
 
@@ -27,7 +27,7 @@ int main() {
     criar_pasta_data();
 
     // Abrir arquivo CSV dentro de /data/
-    FILE *arquivo = fopen("/data/resultados_seq.csv", "w");
+    FILE *arquivo = fopen("q2/data/resultados_seq.csv", "w");
     if (!arquivo) {
         printf("Erro ao criar arquivo CSV!\n");
         return 1;

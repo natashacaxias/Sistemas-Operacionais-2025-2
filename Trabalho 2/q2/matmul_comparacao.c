@@ -16,9 +16,9 @@
 
 void criar_pasta_data() {
 #ifdef _WIN32
-    _mkdir("data");
+    _mkdir("q2/data");
 #else
-    mkdir("data", 0777);
+    mkdir("q2/data", 0777);
 #endif
 }
 
@@ -55,7 +55,7 @@ double executar_paralelo(double **A, double **B, double **C, int n, int num_thre
 int main() {
     criar_pasta_data();
 
-    FILE *arquivo = fopen("/data/resultados_speedup.csv", "w");
+    FILE *arquivo = fopen("q2/data/resultados_speedup.csv", "w");
     if (!arquivo) {
         printf("Erro ao criar CSV!\n");
         return 1;
@@ -63,7 +63,7 @@ int main() {
 
     fprintf(arquivo, "n,threads,tempo_seq,tempo_par,speedup\n");
 
-    int tamanhos[] = {200, 300, 400, 500, 600, 700, 800};
+    int tamanhos[] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000};
     int qtd_tam = sizeof(tamanhos) / sizeof(tamanhos[0]);
 
     int threads_list[] = {2, 4, 6, 8};

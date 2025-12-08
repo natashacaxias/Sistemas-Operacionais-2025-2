@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # ========= CONFIGURAÇÃO ==========
-csv_path = "../data/resultados_speedup.csv"   # ajuste se necessário
-output_dir = "/output/"                       # onde salvar os gráficos
+csv_path = "../q2/data/resultados_speedup.csv"   # ajuste se necessário
+output_dir = "../q2/output/"                       # onde salvar os gráficos
 plt.style.use("seaborn-v0_8")
 
 # ========= CARREGAR CSV ==========
@@ -24,8 +24,29 @@ print(df.to_latex(index=False, float_format="%.6f"))
 
 # ========= GRÁFICO TEMPO SEQ vs PAR ==========
 plt.figure(figsize=(10,6))
-sns.lineplot(data=df, x="n", y="tempo_seq", marker="o", label="Sequencial")
-sns.lineplot(data=df, x="n", y="tempo_par", hue="threads", marker="o", palette="tab10")
+
+# Criar coluna com rótulo correto da legenda
+df["threads_label"] = df["threads"].astype(str) + " threads"
+
+# Linha sequencial com cor fixa
+sns.lineplot(
+    data=df.drop_duplicates("n"),
+    x="n", y="tempo_seq",
+    marker="o",
+    label="Sequencial",
+    color="black",
+    linewidth=2
+)
+
+# Linhas paralelas com rótulos adequados
+sns.lineplot(
+    data=df,
+    x="n", y="tempo_par",
+    hue="threads_label",         # <- LEGENDA PERSONALIZADA
+    marker="o",
+    palette="tab10",
+    linewidth=2
+)
 
 plt.title("Comparação de Tempos: Sequencial vs Paralelo")
 plt.xlabel("Tamanho da Matriz (n)")
@@ -34,6 +55,7 @@ plt.grid(True)
 plt.tight_layout()
 plt.savefig(output_dir + "tempo_seq_vs_par.png")
 plt.show()
+
 
 # ========= GRÁFICO SPEEDUP x THREADS ==========
 plt.figure(figsize=(10,6))
