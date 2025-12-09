@@ -21,6 +21,7 @@ double tempo_atual() {
 
 #else
 // ---------------- LINUX / UNIX -----------------
+#define _POSIX_C_SOURCE 200112L
 #include <time.h>
 
 double tempo_atual() {
